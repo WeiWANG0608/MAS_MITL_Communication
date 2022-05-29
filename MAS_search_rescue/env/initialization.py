@@ -122,7 +122,7 @@ def get_tasks(specs, states_work_region):
     return tasks
 
 
-def make_world(agents_h, agents_l, r_sens_h, r_sens_l, v_h, v_l, a_size, tasks, requests):
+def make_world(agents_h, agents_l, r_sens_h, r_sens_l, v_h, v_l, tasks, requests):
     num = len(agents_h)
     agents_h = [np.array(item) for item in agents_h]
     world = World()
@@ -133,7 +133,6 @@ def make_world(agents_h, agents_l, r_sens_h, r_sens_l, v_h, v_l, a_size, tasks, 
         agent_heavy.p_pos = agents_h[i]
         agent_heavy.r_sens = r_sens_h
         agent_heavy.velocity = v_h
-        agent_heavy.size = a_size
         agent_heavy.path.append(np.array(agents_h[i]))
         agent_heavy.task_left = tasks[i]
         agent_heavy.working_region = i
@@ -144,7 +143,6 @@ def make_world(agents_h, agents_l, r_sens_h, r_sens_l, v_h, v_l, a_size, tasks, 
     world.agents_light.p_pos = agents_l
     world.agents_light.r_sens = r_sens_l
     world.agents_light.velocity = v_l
-    world.agents_light.size = a_size
     world.agents_light.path.append(np.array(agents_l))
     world.agents_light.num_round = 0
     world.agents_light.request_list = [[] for i in range(num)]

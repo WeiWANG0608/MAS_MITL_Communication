@@ -6,6 +6,7 @@ This file is used to monitor and execute the request exchange process
 - collect_deliver(): requests collection and delivery by light-duty robot and
                      timed runs synthesis after receiving requests
 """
+import sys
 
 import numpy as np
 import copy
@@ -62,11 +63,10 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
     while world.agents_light.num_round < num_round_exchange:
         map_light = np.zeros((map_row, map_col), dtype=int)
         i = 0
-        ii = 0
         for k in range(num_agent_heavy):
             world.agents_heavy[k].detected = False
 
-        for i in range(num_agent_heavy):
+        while i < num_agent_heavy:
             print(f"{bcolors.ENDC}Round ", world.agents_light.num_round, " Region", i)
             world.agents_light.region = i
 
@@ -91,6 +91,7 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
                     # # """
                     # # Detection: the sensing area overlaps > 1 time slot
                     # # """
+                    world.agents_heavy[i].detected = True
                     world.agents_light.p_pos = path_sweep[i][j]
                     world.agents_light.path.append(world.agents_light.p_pos)
                     for kk in range(num_agent_heavy):
@@ -139,6 +140,8 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
                                                                    str(world.agents_heavy[i].region2go[wr])
                         world.agents_heavy[i].task_left = new_spec
                         # if there is a new path, then the path updated
+                        if len(new_path) > 1000:
+                            sys.exit("Something wrong in the obtained trajectory")
                         if len(new_path) > 0:
                             print(f"{bcolors.ENDC}The robot ", i, " is updating the path since time ",
                                   round(len(world.agents_heavy[i].path) / v_l))
@@ -156,7 +159,7 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
                           ". Pos_light: ", [path_sweep[i][j][0], path_sweep[i][j][1]],
                           ". Distance is: ", abs(world.agents_heavy[i].p_pos[0] - path_sweep[i][j][0]) +
                           abs(world.agents_heavy[i].p_pos[1] - path_sweep[i][j][1]))
-                    world.agents_heavy[i].detected = True
+
                     i += 1
                     break
 
@@ -226,6 +229,7 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
                     # # """
                     # # Detection: the sensing area overlaps > 1 time slot
                     # # """
+                    world.agents_heavy[ii].detected = True
                     world.agents_light.p_pos = np.array(path_ready_to_sweep[j])
                     world.agents_light.path.append(world.agents_light.p_pos)
                     for kk in range(num_agent_heavy):
@@ -273,6 +277,8 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
                                                                    str(world.agents_heavy[ii].region2go[wr])
                         world.agents_heavy[ii].task_left = new_spec
                         # if there is a new path, then the path updated
+                        if len(new_path) > 1000:
+                            sys.exit("Something wrong in the obtained trajectory")
                         if len(new_path) > 0:
                             print(f"{bcolors.ENDC}The robot ", i, " is updating the path since time ",
                                   round(len(world.agents_heavy[ii].path) / v_l))
@@ -291,7 +297,7 @@ def collect_deliver(world, map_obs_work, num_round_exchange, num_agent_heavy, wo
                           ". Pos_light: ", [path_sweep[ii][-1][0], path_sweep[ii][-1][1]],
                           ". Distance is: ", abs(world.agents_heavy[ii].p_pos[0] - path_sweep[ii][-1][0]) +
                           abs(world.agents_heavy[ii].p_pos[1] - path_sweep[ii][-1][1]))
-                    world.agents_heavy[ii].detected = True
+
                     i += 1
                     break
                 else:
@@ -349,7 +355,10 @@ def complete_path(world, v_light, independent_path_2d, states_work_region, recor
         world.agents_light.path.append(world.agents_light.path[-1])
 
     # finish the new step
-    current_step = round(len(world.agents_heavy[0].path) / v_light)
+    current_step = min([int(len(world.agents_heavy[i].path) / v_light) for i in range(num_agent_heavy)])
+    print("The current step is ", current_step)
+    pos_list = [world.agents_heavy[i].path[-1] for i in range(num_agent_heavy)]
+    print("The current positions are", pos_list)
     max_length = max([len(i) for i in independent_path_2d])
     for i in range(current_step, max_length):
         for t in range(v_light):

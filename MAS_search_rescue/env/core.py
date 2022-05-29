@@ -8,7 +8,6 @@ class Entity(object):
     def __init__(self):
         self.name = ''
         self.p_pos = None
-        self.size = 1
         self.r_sens = 0
         self.velocity = 0
         self.path = []

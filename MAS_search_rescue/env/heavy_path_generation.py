@@ -258,8 +258,11 @@ def get_update_path(current_pos, current_time, coop_region, request, recipient, 
     for i in range(len(spec_new)):
         spec_new[i][1] = str(max(int(spec_new[i][1]) - current_time, 0))
         spec_new[i][2] = str(max(int(spec_new[i][2]) - current_time, 0))
-    if spec_new[0][2] == '0':
-        spec_new.pop(0)
+    spec_backup = []
+    for i in range(len(spec_new)):
+        if spec_new[i][2] != '0':
+            spec_backup.append( spec_new[i])
+    spec_new = spec_backup
     print(f"{bcolors.ENDC}The new specification after the time update is ", spec_new)
     path_heavy = heavy_path(map_coop, spec_new, filefolder, flag, current_pos).get_path()
 

@@ -19,7 +19,7 @@ import moviepy.video.io.ImageSequenceClip
 import matplotlib
 import seaborn as sns
 
-matplotlib.rcParams['savefig.dpi'] = 100
+matplotlib.rcParams['savefig.dpi'] = 200
 
 # Some colours
 WHITE = '#FFFFFF'
@@ -210,8 +210,8 @@ def animate_solution(map_ori, path, region, task, r_sens_l, r_sens_h, v_l, folde
         for l in a_sens_l:
             for j in a_sens_l:
                 if 0 <= path[i][0] + l < rows and 0 <= path[i][1] + j < cols and \
-                        maze[path[i][0] + l, path[i][1] + j] != 1 and maze[path[i][0] + l, path[i][1] + j] != 11 and \
-                        maze[path[i][0] + l, path[i][1] + j] != 13:
+                        maze[path[i][0] + l, path[i][1] + j] != 1 and maze[path[i][0] + l, path[i][1] + j] != 5 and \
+                        maze[path[i][0] + l, path[i][1] + j] != 6 and maze[path[i][0] + l, path[i][1] + j] != 8:
                     a_light.append([path[i][0] + l, path[i][1] + j])
 
         for l in a_sens_h:
@@ -219,8 +219,9 @@ def animate_solution(map_ori, path, region, task, r_sens_l, r_sens_h, v_l, folde
                 for k in range(2, len(path[i]), 2):
                     if 0 <= path[i][k] + l < rows and 0 <= path[i][k + 1] + j < cols and \
                             maze[path[i][k] + l, path[i][k + 1] + j] != 1 and \
-                            maze[path[i][k] + l, path[i][k + 1] + j] != 11 and \
-                            maze[path[i][k] + l, path[i][k + 1] + j] != 13:
+                            maze[path[i][k] + l, path[i][k + 1] + j] != 5 and \
+                            maze[path[i][k] + l, path[i][k + 1] + j] != 6 and \
+                            maze[path[i][k] + l, path[i][k + 1] + j] != 8:
                         a_heavy[int((k - 2) / 2)].append([path[i][k] + l, path[i][k + 1] + j])
                     if i > 0 and 0 <= path[i - 1][k] + l < rows and 0 <= path[i - 1][k + 1] + j < cols:
                         a_heavy[int((k - 2) / 2)].append([path[i - 1][k] + l, path[i - 1][k + 1] + j])
@@ -228,13 +229,16 @@ def animate_solution(map_ori, path, region, task, r_sens_l, r_sens_h, v_l, folde
         for j in range(len(a_heavy)):
             if len(a_heavy_pre[j]) > 0:
                 for k in a_heavy_pre[j]:
-                    if maze[k[0], k[1]] != 1 and maze[k[0], k[1]] != 11 and maze[k[0], k[1]] != 13:
+                    if maze[k[0], k[1]] != 1 and maze[k[0], k[1]] != 5 and \
+                            maze[k[0], k[1]] != 6 and maze[k[0], k[1]] != 8:
                         grid.get_celld()[(k[0], k[1])].set_facecolor(WHITE)
             for k in a_heavy[j]:
-                if maze[k[0], k[1]] != 1 and maze[k[0], k[1]] != 11 and maze[k[0], k[1]] != 13:
+                if maze[k[0], k[1]] != 1 and maze[k[0], k[1]] != 5 and \
+                        maze[k[0], k[1]] != 6 and maze[k[0], k[1]] != 8:
                     grid.get_celld()[(k[0], k[1])].set_facecolor(LIGHT_GREEN)
             for k in a_light:
-                if maze[k[0], k[1]] != 1 and maze[k[0], k[1]] != 11 and maze[k[0], k[1]] != 13:
+                if maze[k[0], k[1]] != 1 and maze[k[0], k[1]] != 5 and \
+                        maze[k[0], k[1]] != 6 and maze[k[0], k[1]] != 8:
                     grid.get_celld()[(k[0], k[1])].set_facecolor(LIGHT_BLUE)
 
             for element in a_heavy[j]:
@@ -246,12 +250,10 @@ def animate_solution(map_ori, path, region, task, r_sens_l, r_sens_h, v_l, folde
             if maze[path[i - 1][0], path[i - 1][1]] == 1:
                 grid.get_celld()[(path[i - 1][0], path[i - 1][1])].set_facecolor(BLACK)
             for k in range(2, len(path[i]), 2):
-                if maze[path[i-1][k], path[i-1][k + 1]] == 11:
+                if maze[path[i-1][k], path[i-1][k + 1]] in [5,6,8]:
                     maze[path[i - 1][k], path[i - 1][k + 1]] = 0
                     grid.get_celld()[(path[i - 1][k], path[i - 1][k+1])].set_facecolor(WHITE)
-                if maze[path[i-1][k], path[i-1][k + 1]] == 13:
-                    maze[path[i - 1][k], path[i - 1][k + 1]] = 0
-                    grid.get_celld()[(path[i - 1][k], path[i - 1][k+1])].set_facecolor(WHITE)
+
         for k in overlap:
             grid.get_celld()[(k[0], k[1])].set_facecolor(YELLOW)
         grid.get_celld()[(path[i][0], path[i][1])].set_facecolor(BLUE)
