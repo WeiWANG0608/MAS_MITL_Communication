@@ -208,7 +208,10 @@ def animate_solution(map_ori, path, region, task, r_sens_l, r_sens_h, v_l, folde
         for l in a_sens_l:
             for j in a_sens_l:
                 if 0 <= path[i][0] + l < rows and 0 <= path[i][1] + j < cols and \
+<<<<<<< HEAD:MITL_communication/env/visualization.py
                         math.sqrt(abs(l) ** 2 + abs(j) ** 2) <= r_sens_l and \
+=======
+>>>>>>> 91c387d511a21f74a672e7068e51ca73cab297b3:MAS_search_rescue/env/visualization.py
                         maze[path[i][0] + l, path[i][1] + j] != 1 and maze[path[i][0] + l, path[i][1] + j] != 5 and \
                         maze[path[i][0] + l, path[i][1] + j] != 6 and maze[path[i][0] + l, path[i][1] + j] != 8:
                     a_light.append([path[i][0] + l, path[i][1] + j])
@@ -250,9 +253,15 @@ def animate_solution(map_ori, path, region, task, r_sens_l, r_sens_h, v_l, folde
             if maze[path[i - 1][0], path[i - 1][1]] == 1:
                 grid.get_celld()[(path[i - 1][0], path[i - 1][1])].set_facecolor(BLACK)
             for k in range(2, len(path[i]), 2):
+<<<<<<< HEAD:MITL_communication/env/visualization.py
                 if maze[path[i - 1][k], path[i - 1][k + 1]] in [5, 6, 8]:
                     maze[path[i - 1][k], path[i - 1][k + 1]] = 0
                     grid.get_celld()[(path[i - 1][k], path[i - 1][k + 1])].set_facecolor(WHITE)
+=======
+                if maze[path[i-1][k], path[i-1][k + 1]] in [5,6,8]:
+                    maze[path[i - 1][k], path[i - 1][k + 1]] = 0
+                    grid.get_celld()[(path[i - 1][k], path[i - 1][k+1])].set_facecolor(WHITE)
+>>>>>>> 91c387d511a21f74a672e7068e51ca73cab297b3:MAS_search_rescue/env/visualization.py
 
         for k in overlap:
             grid.get_celld()[(k[0], k[1])].set_facecolor(YELLOW)

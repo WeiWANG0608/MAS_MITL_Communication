@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 # Decentralized Multi-agent Coordination under MITL Specifications and Communication Constraints
 This repository provides the implementation and case studies for the paper "Decentralized Multi-agent Coordination under MITL Specifications and Communication Constraints".
+=======
+# Decentralized Multi-agent Search and Rescue under MITL Specifications and Communication Constraints
+This repository provides the implementation and case studies for the paper "Decentralized Multi-agent Search and Rescue under MITL Specifications and Communication Constraints".
+>>>>>>> 91c387d511a21f74a672e7068e51ca73cab297b3
 
 ## Installation
 
@@ -13,7 +18,11 @@ We use [UPPAAL](https://www.it.uu.se/research/group/darts/uppaal/index.shtml) to
 UPPAAL models can be created, loaded, saved, simulated, and checked using libs/model.jar library. 
 We use the JAVA API of UPPAAL in order to repeatedly call UPPAAL for model timed runs synthesis and instance solving automatically. 
 
+<<<<<<< HEAD
 - File **MITL_verification.java** under **/MAS_search_rescue** is the API code file, which is supposed to be generated/relocated at the following path after installing UPPAAL.
+=======
+- File **MITL_verification.java** is the API code file, which is supposed to be generated/relocated at the following path after installing UPPAAL.
+>>>>>>> 91c387d511a21f74a672e7068e51ca73cab297b3
 
 ```ruby
 [YOURPATH]/uppaal64-4.1.26/demo/ModelDemo/src[/MITL_verification.java]
@@ -64,4 +73,7 @@ MAS_search_rescue/env
 ```
 
 
+<<<<<<< HEAD
 # MAS_MITL_Communication
+=======
+>>>>>>> 91c387d511a21f74a672e7068e51ca73cab297b3
