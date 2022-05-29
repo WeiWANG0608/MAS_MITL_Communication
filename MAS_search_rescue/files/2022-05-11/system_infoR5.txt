@@ -1,7 +1,0 @@
-ProcessWTS() = WTS();
-ProcessTA() = TA();
-system ProcessWTS, ProcessTA;&int w;
-chan p1,np1,p2,np2;
-bool veri1,veri2;
-&null#int cl1,cl2;
-&WTS#TA
