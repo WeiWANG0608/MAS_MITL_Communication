@@ -13,7 +13,7 @@ We use [UPPAAL](https://www.it.uu.se/research/group/darts/uppaal/index.shtml) to
 UPPAAL models can be created, loaded, saved, simulated, and checked using libs/model.jar library. 
 We use the JAVA API of UPPAAL in order to repeatedly call UPPAAL for model timed runs synthesis and instance solving automatically. 
 
-- File **MITL_verification.java** under **/MAS_search_rescue** is the API code file, which is supposed to be generated/relocated at the following path after installing UPPAAL.
+- File **MITL_verification.java** under **/MITL_communication** is the API code file, which is supposed to be generated/relocated at the following path after installing UPPAAL.
 
 ```ruby
 [YOURPATH]/uppaal64-4.1.26/demo/ModelDemo/src[/MITL_verification.java]
@@ -24,7 +24,7 @@ The following variable in **MITL_verification.java** needs to rewrite as the abs
 ```ruby
 public static void main(String[] args) throws Exception {
 
-      String abspath = "[YOURPATH]/MAS_search_rescue/MAS_search_rescue";
+      String abspath = "[YOURPATH]/MITL_communication/MITL_communication";
 ```
 
 - Bash file **deploy.sh** under the following direction is the used to call **MITL_verification.java** and envoke UPPAAL for instance solving.
@@ -44,7 +44,7 @@ You do not have to start UPPAAL while running the code.
 Once all the abovementioned steps are complete, run the main code under 
 
 ```ruby
-MAS_search_rescue/env/main.py
+MITL_communication/env/main.py
 ```
 
 as
@@ -53,14 +53,14 @@ as
 python3 main.py
 ```
 
-All the results will be saved with date under **MAS_search_rescue/figures** for all figures and **MAS_search_rescue/files** for all .txt, .json files.
+All the results will be saved with date under **MITL_communication/figures** for all figures and **MITL_communication/files** for all .txt, .json files.
 
 
 ## Case studies
 We provide several case studies through [Jupyter Notebook](https://jupyter.org/) under the following dictionary, please check the **README.md** file provided there.
 
 ```ruby
-MAS_search_rescue/env
+MITL_communication/env
 ```
 
 
